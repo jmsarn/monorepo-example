@@ -21,8 +21,6 @@ jobs:
           python-version: "3.11"
       - uses: tj-actions/changed-files@v45
         id: changed-files
-        with:
-          since_last_remote_commit: true
       - name: Run tests
         env:
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
