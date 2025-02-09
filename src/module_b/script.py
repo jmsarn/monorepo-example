@@ -1,6 +1,6 @@
 def main() -> str:
-    """Entrypoint for module_b"""
-    s = "Hello from module_b!"
+    """Entrypoint for module-b"""
+    s = "Hello from module-b!"
     return s
 
 
