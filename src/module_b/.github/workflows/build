@@ -6,13 +6,21 @@
 import re
 import sys
 from argparse import ArgumentParser, FileType
+from pathlib import Path
 
-change_pattern = re.compile(r"module_b\/\w+\.py$")
+MODULE_ROOT = Path(__file__).parents[2]
+
+patterns = [
+    rf"{MODULE_ROOT.stem}\/\w+\.py$",
+    rf"{MODULE_ROOT.stem}\/Dockerfile$",
+]
+change_pattern = re.compile("|".join(patterns))
 
 
 def main(files_changed: list[str]) -> None:
+    """Build module if any of the module files have changed"""
     for f in files_changed:
-        matched = re.match(change_pattern, f.strip())
+        matched = re.search(change_pattern, f.strip())
         if matched is not None:
             print("Building...")
 
