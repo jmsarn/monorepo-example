@@ -30,7 +30,7 @@ jobs:
           for dir in "$MODULE_DIR"/*/; do
             if [ -d "$dir" ]; then  # Check if it's a directory
               if [ -f "$dir/.github/workflows/$WORKFLOW_FILE" ]; then  # Check if the file exists
-                echo "Running $WORKFLOW_FILE in $dir"
+                echo "Running $WORKFLOW_FILE script in $dir/.github/workflows"
                 echo $CHANGED_FILES | ./$dir/.github/workflows/$WORKFLOW_FILE
               fi
             fi

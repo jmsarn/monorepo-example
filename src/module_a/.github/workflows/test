@@ -11,10 +11,12 @@ change_pattern = re.compile(r"module_a\/\w+\.py$")
 
 
 def main(files_changed: list[str]) -> None:
+    print(files_changed)
     for f in files_changed:
         matched = re.match(change_pattern, f.strip())
         if matched is not None:
             print("Running tests")
+            break
 
 
 if __name__ == "__main__":
