@@ -23,6 +23,7 @@ def main(files_changed: list[str]) -> None:
         matched = re.search(change_pattern, f.strip())
         if matched is not None:
             print("Building...")
+            break
 
 
 if __name__ == "__main__":
