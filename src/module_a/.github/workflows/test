@@ -1,0 +1,35 @@
+#!/usr/bin/env -S uv run --script --quiet
+# /// script
+# requires-python = ">=3.10"
+# dependencies = []
+# ///
+import re
+import sys
+from argparse import ArgumentParser, FileType
+from pathlib import Path
+
+MODULE_ROOT = Path(__file__).parents[2]
+
+change_pattern = re.compile(rf"{MODULE_ROOT.stem}\/\w+\.py$")
+
+
+def main(files_changed: list[str]) -> None:
+    for f in files_changed:
+        matched = re.search(change_pattern, f.strip())
+        if matched is not None:
+            print("Running tests")
+            break
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        "changed_files",
+        nargs="?",
+        type=FileType("r"),
+        default=sys.stdin,
+        help="List of changed files",
+    )
+    args = parser.parse_args()
+    files = args.changed_files.readlines()
+    main(files)

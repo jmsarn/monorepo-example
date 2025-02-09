@@ -1,0 +1,32 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: tj-actions/changed-files@v45
+        id: changed-files
+      - name: Deploy modules
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          MODULE_DIR: src
+          WORKFLOW_FILE: deploy
+        run: |
+          for dir in "$MODULE_DIR"/*/; do
+            if [ -d "$dir" ]; then  # Check if it's a directory
+              if [ -f "${dir}.github/workflows/$WORKFLOW_FILE" ]; then  # Check if the file exists
+                echo "Running $WORKFLOW_FILE script in ${dir}.github/workflows"
+                echo $CHANGED_FILES | tr ' ' '\n' | ./${dir}.github/workflows/$WORKFLOW_FILE
+              fi
+            fi
+          done
