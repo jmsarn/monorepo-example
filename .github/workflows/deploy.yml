@@ -16,7 +16,7 @@ jobs:
           python-version: "3.11"
       - uses: tj-actions/changed-files@v45
         id: changed-files
-      - name: Run tests
+      - name: Deploy modules
         env:
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
           MODULE_DIR: src
