@@ -15,7 +15,7 @@ change_pattern = re.compile(rf"{MODULE_ROOT.stem}\/\w+\.py$")
 
 def main(files_changed: list[str]) -> None:
     for f in files_changed:
-        matched = re.match(change_pattern, f.strip())
+        matched = re.search(change_pattern, f.strip())
         if matched is not None:
             print("Running tests")
             break
