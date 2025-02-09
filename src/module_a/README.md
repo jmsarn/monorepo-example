@@ -1,5 +1,3 @@
 # Module A
 
-## Installation
-
 ## Usage

@@ -1,6 +1,4 @@
 # Module B
 
-## Installation
-
 ## Usage
 
